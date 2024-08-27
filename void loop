@@ -1,0 +1,52 @@
+
+void loop() {
+ // io.run();  // Ejecuta Adafruit IO
+  //leer el boton
+  int valorboton = digitalRead(button_pin);
+  //if para ejecutar el programa solo cuando se presione el boton 
+  if (valorboton == LOW) {
+    //leer el sensor de temperatura
+    float valorTemp = analogRead(sensor_temp);
+    voltaje = valorTemp * (3.3 / 4095.0);  // Convertir el valor de ADC a voltaje
+    temp = voltaje * 100 + 20;             // Convertir voltaje a temperatura
+
+    //funcion para mostrar la temperatura en el monitor serial
+    Serial.print("Temperatura medida: ");
+    Serial.println(temp);
+
+    // Mostrar temperatura en el display de 7 segmentos
+    displaymostrar(temp);
+
+    // Controlar LEDs y servo según la temperatura
+    //si temperatura es menor a 37 se enciende el led verde
+    if (temp < 37.0) {
+      Serial.println("Temperatura baja: LED verde encendido.");
+      ledcWrite(PWM_rojo, 0);
+      ledcWrite(PWM_amarillo, 0);
+      ledcWrite(PWM_verde, 255);
+      //el sensor se mueve a la derecha
+      ledcWrite(PWM_servo, 1600);
+      //si temperatura es mayor a 37 o igualo menor a 37.5 enciende luz amarilla
+    } else if (temp <= 37.5 && temp > 37.0) {
+      Serial.println("Temperatura media: LED amarillo encendido.");
+      ledcWrite(PWM_rojo, 0);
+      ledcWrite(PWM_amarillo, 255);
+      ledcWrite(PWM_verde, 0);
+      //mover el servo al centro
+      ledcWrite(PWM_servo, 3000);
+      //si la temperatura es mayor a 37.5 enciende led roja
+    } else if (temp > 37.5) {
+      Serial.println("Temperatura alta: LED rojo encendido.");
+      ledcWrite(PWM_rojo, 255);
+      ledcWrite(PWM_amarillo, 0);
+      ledcWrite(PWM_verde, 0);
+      //mover el servomotor a la izquierda
+      ledcWrite(PWM_servo, 4000);
+    }
+
+    // Enviar temperatura a Adafruit IO
+    // Serial.println("Enviando temperatura a Adafruit IO...");
+    // tempvalor->save(temp);
+    // Serial.println("Temperatura enviada.");
+  }
+}
