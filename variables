@@ -1,0 +1,53 @@
+//****************************************************************************************** */
+//****************************************************************************************** */
+//****************    UNIVERSIDAD DEL VALLE DE GUATEMALA             *********************** */
+//*****************         Electronica digital 2                    *********************** */
+//********Proyecto no.1 : Sensor de temperatura y adafruit           *********************** */
+//********Nombre: Cristopher Javier Portillo Hernandez               ************************/
+//********Carnet: 22071                                              *************************/
+//********fecha: 26/08/2024                                          *************************/
+//****************************************************************************************** */
+//****************************************************************************************** */
+#include <Arduino.h>
+#include <driver/adc.h>
+//#include "config.h"
+#include "driver/ledc.h"
+#include <ESP32Servo.h>
+//#include <AdafruitIO_WiFi.h>
+
+
+// Definición de pines y variables
+//Valores PWM para servo y leds
+#define PWM_servo 4
+#define freq_PWMservo 50
+#define res_PWMSERVO 16
+#define res_PWM  8
+#define freq_PWM 5000
+#define PWM_amarillo 0
+#define PWM_verde 1
+#define PWM_rojo 2
+#define button_pin 13
+//definir pin de leds
+#define led_rojo 4
+#define led_verde 17
+#define led_amarillo 16
+#define sensor_temp 14
+//definir pin de sensor de temperatura
+// definir pin de segmentos de display
+#define sega 33
+#define segb 26
+#define segc 5
+#define segd 19  
+#define sege 18
+#define segf 25
+#define segg 23
+#define segp 21
+//definir pin de servomotor
+#define servomotorpin 22
+//definir pin de displays
+#define display1 32
+#define display2 35
+#define display3 34
+
+float temp;
+float voltaje;
