@@ -1,0 +1,44 @@
+
+void setup() {
+  // Inicialización de Serial para monitoreo
+  Serial.begin(115200);
+  Serial.println("Iniciando conexión a Adafruit IO...");
+
+  //io.connect();
+
+  // // Esperar a que la conexión sea exitosa
+  // while (io.status() < AIO_CONNECTED) {
+  //   Serial.print(".");
+  //   delay(500);
+  // }
+
+  // // Mensaje de confirmación de conexión
+  // Serial.println();
+  // Serial.println("Conectado a Adafruit IO.");
+
+  // Configurar pines para segmentos y displays
+  for (int i = 0; i < 7; i++) {
+    pinMode(segmentPins[i], OUTPUT);
+  }
+  pinMode(segp, OUTPUT);
+  pinMode(display1, OUTPUT);
+  pinMode(display2, OUTPUT);
+  pinMode(display3, OUTPUT);
+
+  // Configurar pines para sensor y botón
+  pinMode(sensor_temp, INPUT);
+  pinMode(button_pin, INPUT_PULLUP);
+
+  // Configurar PWM para LEDs y servo
+  ledcSetup(PWM_rojo, freq_PWM, res_PWM);
+  ledcAttachPin(led_rojo, PWM_rojo);
+  ledcSetup(PWM_amarillo, freq_PWM, res_PWM);
+  ledcAttachPin(led_amarillo, PWM_amarillo);
+  ledcSetup(PWM_verde, freq_PWM, res_PWM);
+  ledcAttachPin(led_verde, PWM_verde);
+  ledcSetup(PWM_servo, freq_PWMservo, res_PWMSERVO);
+  ledcAttachPin(servomotorpin, PWM_servo);
+  ledcWrite(PWM_servo, 3277);  // Posición inicial del servo
+
+  Serial.println("Setup completo. Esperando datos...");
+}
